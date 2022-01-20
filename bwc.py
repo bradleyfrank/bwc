@@ -36,14 +36,19 @@ def analyze_guess():
     """Tests letters and letter positions."""
     result = []
     for position, (word, guess) in enumerate(zip(THE_WORD, THE_GUESS)):
+        alpha_index = list(string.ascii_uppercase).index(guess)
+
         if guess == word:
-            result.insert(position, f"{Style.BRIGHT}{Fore.WHITE}{Back.BLUE}{guess}{Style.RESET_ALL}")
+            background = Back.BLUE
         elif guess in THE_WORD:
-            result.insert(position, f"{Style.BRIGHT}{Fore.WHITE}{Back.YELLOW}{guess}{Style.RESET_ALL}")
+            background = Back.YELLOW
         else:
-            letter = ALPHABET.index(guess)
-            ALPHABET[letter] = f"{Style.BRIGHT}{Fore.WHITE}{Back.BLACK}{ALPHABET[letter]}{Style.RESET_ALL}"
-            result.insert(position, guess)
+            background = Back.WHITE
+
+        used_letter = f"{Style.BRIGHT}{Fore.WHITE}{background}{guess}{Style.RESET_ALL}"
+        result.insert(position, used_letter)
+        ALPHABET[alpha_index] = used_letter
+
     return result
 
 with open("words", 'r') as word_list:
@@ -57,9 +62,9 @@ while True:
         print(f"{Style.BRIGHT}{Fore.WHITE}{Back.MAGENTA}CONGRATS!{Style.RESET_ALL}")
         break
     THE_ANALYSIS = analyze_guess()
-    print("".join(THE_ANALYSIS))
-    print("".join(ALPHABET))
+    print(" ".join(THE_ANALYSIS))
+    print(" ".join(ALPHABET))
     TURN = TURN + 1
-    if TURN == 5:
-        print(f"{Style.BRIGHT}{Fore.WHITE}{Back.RED}THE_WORD{Style.RESET_ALL}")
+    if TURN > WORD_LENGTH:
+        print(f"{Style.BRIGHT}{Fore.WHITE}{Back.RED}{THE_WORD}{Style.RESET_ALL}")
         break
