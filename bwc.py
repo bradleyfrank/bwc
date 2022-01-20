@@ -2,6 +2,9 @@
 
 """
 Brad's Wordle Clone
+
+TODO: Dark theme terminals don't show color as well.
+TODO: Repeating letters in a guess aren't handled properly.
 """
 
 import random
@@ -44,7 +47,7 @@ def analyze_guess():
         elif guess in THE_WORD:
             background = Back.YELLOW
         else:
-            background = Back.WHITE
+            background = Back.BLACK
 
         used_letter = f"{Style.BRIGHT}{Fore.WHITE}{background}{guess}{Style.RESET_ALL}"
         result.insert(position, used_letter)
