@@ -8,6 +8,7 @@ import random
 import string
 from colorama import Fore, Back, Style
 
+DICTIONARY = "oreilly-words"
 WORD_LENGTH = 5
 TURN = 1
 ALPHABET = list(string.ascii_uppercase)
@@ -51,7 +52,7 @@ def analyze_guess():
 
     return result
 
-with open("words", 'r') as word_list:
+with open(DICTIONARY, 'r') as word_list:
     WORDS = word_list.read().splitlines()
 
 THE_WORD = select_random_word()
